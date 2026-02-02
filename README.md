@@ -1,6 +1,6 @@
 ## TODO:
-## Student Name:
-## Student ID: 
+## Student Name: Daniel Ferlisi
+## Student ID: 218714923
 
 # Meeting Slot Suggestion Lab Repository
 
