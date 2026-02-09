@@ -129,3 +129,28 @@ def test_empty_event_list_respects_lunch_break():
     assert "12:00" not in slots
     assert "12:30" not in slots
     assert "13:00" in slots
+
+def test_friday_no_meetings_after_15():
+    """
+    Constraint:
+    On Fridays, meetings must not start at or after 15:00.
+    """
+    events = []
+    slots = suggest_slots(events, meeting_duration=30, day="friday")
+
+    assert "14:45" in slots
+    assert "15:00" not in slots
+    assert "15:15" not in slots
+    assert "16:00" not in slots
+
+def test_friday_meeting_duration_does_not_allow_late_start():
+    """
+    Edge case:
+    Even short meetings must not start at or after 15:00 on Friday.
+    """
+    events = []
+    slots = suggest_slots(events, meeting_duration=15, day="friday")
+
+    assert "14:45" in slots
+    assert "15:00" not in slots
+    assert "15:15" not in slots
