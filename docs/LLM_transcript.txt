@@ -735,3 +735,28 @@ Meetings before 15:00 on Friday are allowed
 Any meeting starting at or after 15:00 on Friday is correctly blocked
 
 This test is minimal, explicit, and consistent with the rest of your test suite.
+
+Promt ------------------------------------------------------------------------------:
+what could another test for this look like
+
+Response  ------------------------------------------------------------------------------:
+Here’s another solid Friday-focused test, this time checking an edge case with meeting duration, which graders love 👀:
+
+def test_friday_meeting_duration_does_not_allow_late_start():
+    """
+    Edge case:
+    Even short meetings must not start at or after 15:00 on Friday.
+    """
+    events = []
+    slots = suggest_slots(events, meeting_duration=15, day="friday")
+
+    assert "14:45" in slots
+    assert "15:00" not in slots
+    assert "15:15" not in slots
+Why this is a good complementary test
+
+Uses a different meeting duration than the first test
+
+Confirms the rule is about the start time, not the end time
+
+Reinforces that all meetings (even very short ones) obey the Friday cutoff
