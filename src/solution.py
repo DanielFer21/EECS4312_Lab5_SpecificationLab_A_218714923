@@ -36,7 +36,7 @@ def suggest_slots(
     busy = []
     for e in events:
         start = to_minutes(e["start"])
-        end = to_minutes(e["end"]) + BUFFER  # ✅ apply buffer
+        end = to_minutes(e["end"]) + BUFFER
 
         # Ignore events fully outside working hours
         if end <= WORK_START or start >= WORK_END:
@@ -56,6 +56,11 @@ def suggest_slots(
 
         # Block lunch break starts
         if LUNCH_START <= start < LUNCH_END:
+            start += SLOT_INCREMENT
+            continue
+
+        # Block Friday after 15:00
+        if day.lower() == "friday" and start >= 15 * 60:
             start += SLOT_INCREMENT
             continue
 
